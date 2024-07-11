@@ -2,57 +2,45 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <title>Telegram Web App</title>
     <style>
-        :root {
-            --tg-theme-bg-color: #FFFFFF; /* Значение по умолчанию */
-            --tg-theme-text-color: #000000; /* Значение по умолчанию */
-            --tg-theme-hint-color: #BBBBBB; /* Значение по умолчанию */
-            --tg-theme-link-color: #5CABFF; /* Значение по умолчанию */
-            --tg-theme-button-color: #5CABFF; /* Значение по умолчанию */
-            --tg-theme-button-text-color: #FFFFFF; /* Значение по умолчанию */
-        }
         body {
-            background-color: var(--tg-theme-bg-color);
-            color: var(--tg-theme-text-color);
+            background-image: url('background.png'); /* Фон для всех пользователей */
+            background-size: cover;
         }
-        #clicker {
-            cursor: pointer;
-            display: block;
-            margin: 0 auto;
-        }
-        #score {
-            text-align: center;
-            font-size: 24px;
-            margin-top: 20px;
+        #qr {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
         }
     </style>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div id="score">Кликов: 0</div>
-    <img id="clicker" src="clicklvl1.png" width="200" height="200">
+    <img id="qr" src="qr.png" alt="QR Code"> <!-- QR-код для не-Telegram пользователей -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
         var tg = window.Telegram.WebApp;
-        var score = 0;
 
-        document.getElementById('clicker').onclick = function() {
-            score++;
-            document.getElementById('score').textContent = 'MemeClick\'ов: ' + score;
-            // Отправляем данные обратно в Telegram бота
-            tg.sendData(String(score));
-        };
+        // Проверяем, открыто ли приложение в Telegram
+        if (!tg.isWebView) {
+            document.getElementById('qr').style.display = 'block';
+        } else {
+            // Если открыто в Telegram, получаем user ID и отправляем в базу данных
+            var userId = tg.initDataUnsafe.user.id; // Получаем Telegram user ID
+            // TODO: Отправьте userId в вашу базу данных
 
-        // Подписываемся на изменение цветовой схемы
-        tg.onEvent('themeChanged', function() {
-            document.body.style.backgroundColor = tg.ThemeParams.bg_color;
-            document.body.style.color = tg.ThemeParams.text_color;
-        });
+            // Увеличиваем счетчик кликов для пользователя
+            document.body.onclick = function() {
+                // TODO: Увеличьте счетчик кликов для userId в вашей базе данных
+            };
+        }
 
         // Подготавливаем приложение к отображению
         tg.ready();
-
-        // Растягиваем окно на всю высоту
-        tg.expand();
     </script>
 </body>
 </html>
