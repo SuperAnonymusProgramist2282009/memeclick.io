@@ -2,8 +2,30 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <!-- Убран элемент <title> -->
+    <style>
+        #clicker {
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+        #score {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <p>Илья мухортов пиздец гей дранный.</p>
+    <div id="score">Кликов: 0</div>
+    <!-- Убран атрибут alt -->
+    <img id="clicker" src="картинка.png" width="200" height="200">
+    <script>
+        var score = 0;
+        document.getElementById('clicker').onclick = function() {
+            score++;
+            document.getElementById('score').textContent = 'Кликов: ' + score;
+        };
+    </script>
 </body>
 </html>
