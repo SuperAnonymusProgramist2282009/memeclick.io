@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Telegram Web App</title>
+    <title>ClickCoin Web App</title>
     <style>
         body {
             background-image: url('background.png'); /* Фон для всех пользователей */
@@ -23,24 +23,27 @@
     <img id="qr" src="qr.png" alt="QR Code"> <!-- QR-код для не-Telegram пользователей -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-        var tg = window.Telegram.WebApp;
+        document.addEventListener('DOMContentLoaded', function() {
+            var tg = window.Telegram.WebApp;
 
-        // Проверяем, открыто ли приложение в Telegram
-        if (!tg.isWebView) {
-            document.getElementById('qr').style.display = 'block';
-        } else {
-            // Если открыто в Telegram, получаем user ID и отправляем в базу данных
-            var userId = tg.initDataUnsafe.user.id; // Получаем Telegram user ID
-            // TODO: Отправьте userId в вашу базу данных
+            // Подготавливаем приложение к отображению
+            tg.ready();
 
-            // Увеличиваем счетчик кликов для пользователя
-            document.body.onclick = function() {
-                // TODO: Увеличьте счетчик кликов для userId в вашей базе данных
-            };
-        }
+            // Проверяем, открыто ли приложение в Telegram
+            if (tg.isWebView) {
+                // Если открыто в Telegram, получаем user ID и отправляем в базу данных
+                var userId = tg.initDataUnsafe.user.id; // Получаем Telegram user ID
+                // TODO: Отправьте userId в вашу базу данных
 
-        // Подготавливаем приложение к отображению
-        tg.ready();
+                // Увеличиваем счетчик кликов для пользователя
+                document.body.addEventListener('click', function() {
+                    // TODO: Увеличьте счетчик кликов для userId в вашей базе данных
+                });
+            } else {
+                // Если не открыто в Telegram, показываем QR-код
+                document.getElementById('qr').style.display = 'block';
+            }
+        });
     </script>
 </body>
 </html>
