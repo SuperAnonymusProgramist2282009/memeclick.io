@@ -2,8 +2,19 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <!-- Убран элемент <title> -->
     <style>
+        :root {
+            --tg-theme-bg-color: #FFFFFF; /* Значение по умолчанию */
+            --tg-theme-text-color: #000000; /* Значение по умолчанию */
+            --tg-theme-hint-color: #BBBBBB; /* Значение по умолчанию */
+            --tg-theme-link-color: #5CABFF; /* Значение по умолчанию */
+            --tg-theme-button-color: #5CABFF; /* Значение по умолчанию */
+            --tg-theme-button-text-color: #FFFFFF; /* Значение по умолчанию */
+        }
+        body {
+            background-color: var(--tg-theme-bg-color);
+            color: var(--tg-theme-text-color);
+        }
         #clicker {
             cursor: pointer;
             display: block;
@@ -15,17 +26,33 @@
             margin-top: 20px;
         }
     </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
     <div id="score">Кликов: 0</div>
-    <!-- Убран атрибут alt -->
     <img id="clicker" src="clicklvl1.png" width="200" height="200">
     <script>
+        var tg = window.Telegram.WebApp;
         var score = 0;
+
         document.getElementById('clicker').onclick = function() {
             score++;
             document.getElementById('score').textContent = 'Кликов: ' + score;
+            // Отправляем данные обратно в Telegram бота
+            tg.sendData(String(score));
         };
+
+        // Подписываемся на изменение цветовой схемы
+        tg.onEvent('themeChanged', function() {
+            document.body.style.backgroundColor = tg.ThemeParams.bg_color;
+            document.body.style.color = tg.ThemeParams.text_color;
+        });
+
+        // Подготавливаем приложение к отображению
+        tg.ready();
+
+        // Растягиваем окно на всю высоту
+        tg.expand();
     </script>
 </body>
 </html>
