@@ -2,26 +2,25 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Определение Браузера</title>
+<title>Определение Telegram WebApp</title>
 <script>
 function detectBrowser() {
   var userAgentString = navigator.userAgent;
-  var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i, edge: /edge/i, opera: /opera/i};
-
-  for(var key in browsers) {
-    if (browsers[key].test(userAgentString)) {
-      return 'Ваш браузер: ' + key;
-    }
+  var isTelegramWebApp = userAgentString.includes('Telegram');
+  
+  if (isTelegramWebApp) {
+    return 'Вы зашли через Telegram WebApp';
+  } else {
+    return 'Вы зашли не через Telegram WebApp';
   }
-  return 'Ваш браузер не определен';
 }
 
-function showBrowser() {
+function showBrowserInfo() {
   document.getElementById('browserInfo').textContent = detectBrowser();
 }
 </script>
 </head>
-<body onload="showBrowser()">
+<body onload="showBrowserInfo()">
 <h1>Определение Вашего Браузера</h1>
 <p id="browserInfo"></p>
 </body>
