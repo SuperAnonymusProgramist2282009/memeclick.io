@@ -1,49 +1,28 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>ClickCoin Web App</title>
-    <style>
-        body {
-            background-image: url('background.png'); /* Фон для всех пользователей */
-            background-size: cover;
-        }
-        #qr {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Определение Браузера</title>
+<script>
+function detectBrowser() {
+  var userAgentString = navigator.userAgent;
+  var browsers = {chrome: /chrome/i, safari: /safari/i, firefox: /firefox/i, ie: /internet explorer/i, edge: /edge/i, opera: /opera/i};
+
+  for(var key in browsers) {
+    if (browsers[key].test(userAgentString)) {
+      return 'Ваш браузер: ' + key;
+    }
+  }
+  return 'Ваш браузер не определен';
+}
+
+function showBrowser() {
+  document.getElementById('browserInfo').textContent = detectBrowser();
+}
+</script>
 </head>
-<body>
-    <img id="qr" src="qr.png" alt="QR Code"> <!-- QR-код для не-Telegram пользователей -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var tg = window.Telegram.WebApp;
-
-            // Подготавливаем приложение к отображению
-            tg.ready();
-
-            // Проверяем, открыто ли приложение в Telegram
-            if (tg.isWebView) {
-                // Если открыто в Telegram, получаем user ID и отправляем в базу данных
-                var userId = tg.initDataUnsafe.user.id; // Получаем Telegram user ID
-                // TODO: Отправьте userId в вашу базу данных
-
-                // Увеличиваем счетчик кликов для пользователя
-                document.body.addEventListener('click', function() {
-                    // TODO: Увеличьте счетчик кликов для userId в вашей базе данных
-                });
-            } else {
-                // Если не открыто в Telegram, показываем QR-код
-                document.getElementById('qr').style.display = 'block';
-            }
-        });
-    </script>
+<body onload="showBrowser()">
+<h1>Определение Вашего Браузера</h1>
+<p id="browserInfo"></p>
 </body>
 </html>
