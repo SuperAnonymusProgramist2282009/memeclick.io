@@ -4,23 +4,19 @@
 <meta charset="UTF-8">
 <title>Определение Telegram WebApp</title>
 <script>
-function detectBrowser() {
+function detectTelegramWebApp() {
   var userAgentString = navigator.userAgent;
-  var isTelegramWebApp = userAgentString.includes('Telegram');
-  
-  if (isTelegramWebApp) {
-    return 'Вы зашли через Telegram WebApp';
-  } else {
-    return 'Вы зашли не через Telegram WebApp';
-  }
+  var isTelegramWebApp = userAgentString.includes('Telegram') || userAgentString.includes('TG');
+
+  document.getElementById('browserInfo').textContent = isTelegramWebApp ? 
+    'Вы зашли через Telegram WebApp' : 
+    'Вы зашли не через Telegram WebApp';
 }
 
-function showBrowserInfo() {
-  document.getElementById('browserInfo').textContent = detectBrowser();
-}
+window.onload = detectTelegramWebApp;
 </script>
 </head>
-<body onload="showBrowserInfo()">
+<body>
 <h1>Определение Вашего Браузера</h1>
 <p id="browserInfo"></p>
 </body>
