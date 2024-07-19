@@ -10,45 +10,7 @@
 
     <script>
         function getBrowserInfo() {
-            var ua = navigator.userAgent;
-            var browserName = "Неизвестный браузер";
-            var fullVersion = "Неизвестная версия";
-            var nameOffset, verOffset;
-
-            if ((verOffset = ua.indexOf("Opera")) != -1) {
-                browserName = "Opera";
-                fullVersion = ua.substring(verOffset + 6);
-                if ((verOffset = ua.indexOf("Version")) != -1) 
-                    fullVersion = ua.substring(verOffset + 8);
-            } else if ((verOffset = ua.indexOf("MSIE")) != -1) {
-                browserName = "Microsoft Internet Explorer";
-                fullVersion = ua.substring(verOffset + 5);
-            } else if ((verOffset = ua.indexOf("Chrome")) != -1) {
-                browserName = "Chrome";
-                fullVersion = ua.substring(verOffset + 7);
-            } else if ((verOffset = ua.indexOf("Safari")) != -1) {
-                browserName = "Safari";
-                fullVersion = ua.substring(verOffset + 7);
-                if ((verOffset = ua.indexOf("Version")) != -1) 
-                    fullVersion = ua.substring(verOffset + 8);
-            } else if ((verOffset = ua.indexOf("Firefox")) != -1) {
-                browserName = "Firefox";
-                fullVersion = ua.substring(verOffset + 8);
-            } else if ((nameOffset = ua.lastIndexOf(' ') + 1) < (verOffset = ua.lastIndexOf('/'))) {
-                browserName = ua.substring(nameOffset, verOffset);
-                fullVersion = ua.substring(verOffset + 1);
-                if (browserName.toLowerCase() == browserName.toUpperCase()) {
-                    browserName = navigator.appName;
-                }
-            }
-
-            var majorVersion = parseInt('' + fullVersion, 10);
-            if (isNaN(majorVersion)) {
-                fullVersion = '' + parseFloat(navigator.appVersion); 
-                majorVersion = parseInt(navigator.appVersion, 10);
-            }
-
-            return browserName + ' ' + fullVersion;
+            return navigator.userAgent;
         }
 
         document.getElementById("browser-info").innerText = "Вы зашли с " + getBrowserInfo();
