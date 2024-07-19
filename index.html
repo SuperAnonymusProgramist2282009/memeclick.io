@@ -10,10 +10,19 @@
 
     <script>
         function getBrowserInfo() {
-            return navigator.userAgent;
+            var ua = navigator.userAgent;
+            var isTelegram = ua.includes("wv") && ua.includes("Version/");
+            var platform = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp.platform : "Неизвестная платформа";
+            var version = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp.version : "Неизвестная версия";
+
+            if (isTelegram) {
+                return "Вы зашли с Telegram WebView, платформа: " + platform + ", версия: " + version;
+            } else {
+                return ua;
+            }
         }
 
-        document.getElementById("browser-info").innerText = "Вы зашли с " + getBrowserInfo();
+        document.getElementById("browser-info").innerText = getBrowserInfo();
     </script>
 </body>
 </html>
