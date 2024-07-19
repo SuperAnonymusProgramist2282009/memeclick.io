@@ -7,6 +7,7 @@
 </head>
 <body>
     <div id="browser-info"></div>
+    <img id="browser-image" src="" alt="">
 
     <script>
         function getBrowserInfo() {
@@ -16,13 +17,21 @@
             var version = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp.version : "Неизвестная версия";
 
             if (isTelegram) {
-                return "Вы зашли с Telegram WebView, платформа: " + platform + ", версия: " + version;
+                return {
+                    message: "",
+                    image: "clicklvl1.png"
+                };
             } else {
-                return "Вы зашли с " + ua;
+                return {
+                    message: "Вы зашли с " + ua + "\nscan the qr code and play with telegram",
+                    image: "qr-code.png"
+                };
             }
         }
 
-        document.getElementById("browser-info").innerText = getBrowserInfo();
+        var browserInfo = getBrowserInfo();
+        document.getElementById("browser-info").innerText = browserInfo.message;
+        document.getElementById("browser-image").src = browserInfo.image;
     </script>
 </body>
 </html>
