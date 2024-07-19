@@ -18,35 +18,24 @@
             margin-bottom: 10px;
         }
         #browser-image {
-            width: 100px; /* Устанавливаем ширину изображения */
-            height: 100px; /* Устанавливаем высоту изображения */
+            width: 200px; /* Устанавливаем ширину изображения */
+            height: 200px; /* Устанавливаем высоту изображения */
             margin-top: 10px;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div id="browser-info"></div>
-        <img id="browser-image" src="" alt="">
-    </div>
+    <div id="browser-info"></div>
+    <img id="browser-image" src="" alt="">
 
     <script>
         function getBrowserInfo() {
             var ua = navigator.userAgent;
             var isTelegram = ua.includes("wv") && ua.includes("Version/");
-            var platform = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp.platform : "Неизвестная платформа";
-            var version = (window.Telegram && window.Telegram.WebApp) ? window.Telegram.WebApp.version : "Неизвестная версия";
 
             if (isTelegram) {
                 return {
-                    message: "Вы зашли с Telegram WebView, платформа: " + platform + ", версия: " + version,
+                    message: "", // Пустое сообщение для Telegram WebView
                     image: "clicklvl1.png"
                 };
             } else {
