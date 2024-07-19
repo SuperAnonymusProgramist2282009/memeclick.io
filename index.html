@@ -4,6 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Определение браузера</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        #browser-image {
+            width: 100px; /* Устанавливаем ширину изображения */
+            height: 100px; /* Устанавливаем высоту изображения */
+            margin-top: 10px;
+        }
+        #browser-info {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
     <div id="browser-info"></div>
@@ -18,7 +37,7 @@
 
             if (isTelegram) {
                 return {
-                    message: "",
+                    message: "Вы зашли с Telegram WebView, платформа: " + platform + ", версия: " + version,
                     image: "clicklvl1.png"
                 };
             } else {
